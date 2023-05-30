@@ -1,0 +1,51 @@
+service: restapi-lambda
+
+plugins:
+  - serverless-plugin-typescript
+  # - serverless-plugin-optimize
+  - serverless-offline
+  # - serverless-jetpack
+  - serverless-webpack
+  - serverless-functions-base-path
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  profile: default  
+  environment:
+    NO_COLOR: ${env:NO_COLOR, 'true'}
+    PORT: ${env:PORT, '3000'}
+    NODE_ENV: ${env:NODE_ENV, 'development'}
+
+    POSTGRES_HOST: ${env:POSTGRES_HOST, 'POSTGRES_HOST'}
+    POSTGRES_PORT: ${env:POSTGRES_PORT, 'POSTGRES_PORT'}
+    POSTGRES_USER: ${env:POSTGRES_USER, 'POSTGRES_USERNAME'}
+    POSTGRES_PASSWORD: ${env:POSTGRES_PASSWORD, 'POSTGRES_PASSWORD'}
+    POSTGRES_DB: ${env:POSTGRES_DB, 'POSTGRES_DBNAME'}
+package:
+#   excludeDevDependencies: true
+  patterns:
+    - webpack.config.js
+    - tsconfig.json
+    # - src/**/*.ts
+  # individually: true
+
+    
+functions:
+  main:
+    handler: lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{any+} 
+
+custom:
+  functionsBasePath: src
+  serverless-offline:
+    noPrependStageInUrl: true
+  webpack:
+    webpackConfig: 'webpack.config.js' # Name of webpack configuration file
+    includeModules: true # Node modules configuration for packaging
+    packager: 'npm' # Packager that will be used to package your external modules
+    # excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
