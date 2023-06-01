@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './typeorm';
+import { NftcollectionsModule } from './nftcollections/nftcollections.module';
 
 @Module({
   imports: [
@@ -23,7 +24,8 @@ import { User } from './typeorm';
       }),
       inject: [ConfigService]
     }),
-    UsersModule
+    UsersModule,
+    NftcollectionsModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -8,7 +8,7 @@ import {
     UsePipes,
     ValidationPipe
 } from '@nestjs/common';
-import { SignupDTO } from 'src/users/dtos';
+import { LoginDTO, SignupDTO } from 'src/users/dtos';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -24,6 +24,12 @@ export class UsersController {
     @Get('id/:id')
     findUsersById(@Param('id', ParseIntPipe) id: number){
         return this.userService.findUsersById(id);
+    }
+
+    @Post('search')
+    @UsePipes(ValidationPipe)
+    findUser(@Body() loginDTO:LoginDTO):Promise<any>{
+        return this.userService.loginUser(loginDTO);
     }
 
     @Post('create')
