@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Nftids } from "./nftids.entity";
 
 
 @Entity()
@@ -13,6 +14,9 @@ class Nftcollection {
         default: ''
     })
     name : string;
+
+    @OneToMany(()=>Nftids, (nftids) => {nftids.nftcollection})
+    nftids : Nftids[];
 }
 
 export {

@@ -12,15 +12,17 @@ export class NftcollectionsController {
         return "ID NAMES";
     }
 
-    @Post('create')
-    @UsePipes(ValidationPipe)
-    createCollectionName(@Body() collectionDTO: CollectionDTO){
-        return collectionDTO;
-    }
-
     @Post('search')
     searchCollectionName(@Body() collectionName: string):Promise<Nftcollection>{
         const result = this.nftcollectionService.searchCollectionname(collectionName);
         return result;
+    }
+
+    @Post('create')
+    @UsePipes(ValidationPipe)
+    async saveNftData(@Body() data: CollectionDTO) {
+        const { name, ids } = data;
+        await this.nftcollectionService.createCollection({name, ids});
+        return 'Data saved successfully';
     }
 }
