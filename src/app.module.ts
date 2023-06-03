@@ -4,7 +4,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './typeorm';
+import { Nftcollection, Nftid, User } from './typeorm';
+import { NftcollectionsModule } from './nftcollections/nftcollections.module';
 
 @Module({
   imports: [
@@ -18,12 +19,13 @@ import { User } from './typeorm';
         username: configService.get('POSTGRES_USER'),
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
-        entities: [User],
+        entities: [User,Nftcollection,Nftid],
         synchronize: true
       }),
       inject: [ConfigService]
     }),
-    UsersModule
+    UsersModule,
+    NftcollectionsModule
   ],
   controllers: [AppController],
   providers: [AppService],
