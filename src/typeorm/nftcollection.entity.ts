@@ -1,22 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Nftids } from "./nftids.entity";
+import { Nftid } from "./nftid.entity";
 
 
 @Entity()
 class Nftcollection {
-    @PrimaryGeneratedColumn({
-        type: 'bigint',
-        name: 'collection_id'
-    })
+    @PrimaryGeneratedColumn()
     id: number;
-    @Column({
-        nullable: false,
-        default: ''
-    })
+
+    @Column()
     name : string;
 
-    @OneToMany(()=>Nftids, (nftids) => {nftids.nftcollection})
-    nftids : Nftids[];
+    @OneToMany(() => Nftid, (nftid) => nftid.nftcollection)
+    nftids: Nftid[];
 }
 
 export {

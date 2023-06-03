@@ -1,7 +1,6 @@
 import { Controller, Get,Post, Body,UsePipes, ValidationPipe } from '@nestjs/common';
 import { CollectionDTO } from '../dtos/Collection.dto';
 import { NftcollectionsService } from '../service/nftcollections.service';
-import { Nftcollection } from 'src/typeorm/nftcollection.entity';
 
 @Controller('nftcollections')
 export class NftcollectionsController {
@@ -13,8 +12,8 @@ export class NftcollectionsController {
     }
 
     @Post('search')
-    searchCollectionName(@Body() collectionName: string):Promise<Nftcollection>{
-        const result = this.nftcollectionService.searchCollectionname(collectionName);
+    searchCollectionName(@Body() collectionNames: any):Promise<any>{
+        const result = this.nftcollectionService.getNameByIds(collectionNames);
         return result;
     }
 
@@ -22,7 +21,6 @@ export class NftcollectionsController {
     @UsePipes(ValidationPipe)
     async saveNftData(@Body() data: CollectionDTO) {
         const { name, ids } = data;
-        await this.nftcollectionService.createCollection({name, ids});
-        return 'Data saved successfully';
+        return await this.nftcollectionService.createCollection({name, ids});
     }
 }

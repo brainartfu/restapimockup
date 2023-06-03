@@ -3,16 +3,11 @@ import { Nftcollection } from "./nftcollection.entity";
 
 
 @Entity()
-class Nftids {
-    @PrimaryGeneratedColumn({
-        type: 'bigint',
-        name: 'collection_id'
-    })
+class Nftid {
+    @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        nullable: false
-    })
+    @Column()
     name : string;
 
     @ManyToOne(() => Nftcollection, (nftcollection) => nftcollection.nftids)
@@ -20,5 +15,5 @@ class Nftids {
 }
 
 export {
-    Nftids
+    Nftid
 }
