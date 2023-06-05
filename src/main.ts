@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {Express} from 'express';
-import { INestApplication } from '@nestjs/common';
-import {ExpressAdapter} from '@nestjs/platform-express';
+// import {Express} from 'express';
+// import { INestApplication } from '@nestjs/common';
+// import {ExpressAdapter} from '@nestjs/platform-express';
 
 // must remove comment when deploy lambda
 
